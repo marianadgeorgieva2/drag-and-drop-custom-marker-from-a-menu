@@ -24,17 +24,17 @@ $( document ).ready( function() {
 				$( '.draggable-marker' ).css( 'top', posTop );
 				$( '.draggable-marker' ).css( 'left', posLeft );
 
-				var coordsX = event.clientX - 50,
-					coordsY = event.clientY + 21,
+				var coordsX = event.clientX - 50, // 50 is the width of the menu
+					coordsY = event.clientY + 20, // 20 is the half of markers height
 					point = L.point( coordsX, coordsY ), // createing a Point object with the given x and y coordinates
 					markerCoords = map.containerPointToLatLng( point ), // getting the geographical coordinates of the point
 
 					// Creating a custom icon
 					myIcon = L.icon({
-				    iconUrl: 'images/marker-icon.png', // the url of the img
-				    iconSize: [20, 40],
-				    iconAnchor: [10, 40] // the coordinates of the "tip" of the icon ( in this case must be ( icon width/ 2, icon height )
-				});
+						iconUrl: 'images/marker-icon.png', // the url of the img
+						iconSize: [20, 40],
+						iconAnchor: [10, 40] // the coordinates of the "tip" of the icon ( in this case must be ( icon width/ 2, icon height )
+					});
 
 				// Creating a new marker and adding it to the map
 				markers[ markersCount ] = L.marker( [ markerCoords.lat, markerCoords.lng ], {
