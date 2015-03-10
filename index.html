@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+</head>
+
+<body>
+	<div class="marker-menu" >
+		<img class="draggable-marker" src="images/marker-icon.png" alt="marker" />
+	</div>
+	<div id="map"></div>
+
+	<a href="myblog1/index.html"> Here </a>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script>
+		var markers = [],
+			markersCount = 0;
+
+		var initMap = function () {
+		    map = new L.Map('map', { zoomControl: false }).setView([42.7, 23.33], 15);
+
+		    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		    }).addTo(map);
+		}
+
+		var addMarkers = function () {
+			var posTop = $( '.draggable-marker' ).css( 'top' ),
+			posLeft = $( '.draggable-marker' ).css( 'left' );
+
+			$( '.draggable-marker' ).draggable({
+				start: function ( event, ui ) {
+				},
+				stop: function ( e, ui ) {
+					$( '.draggable-marker' ).css( 'top', posTop );
+					$( '.draggable-marker' ).css( 'left', posLeft );
+
+					var coordsX = event.clientX - 50,
+						coordsY = event.clientY + 21,
+						point = L.point( coordsX, coordsY ),
+						markerCoords = map.containerPointToLatLng( point );
+
+					var myIcon = L.icon({
+					    iconUrl: 'images/marker-icon.png',
+					    iconSize: [20, 40],
+					    iconAnchor: [10, 40] //width/ 2 and height=height
+					});
+
+					// try to zoom in/ out !!!!
+
+					markers[ markersCount ] = L.marker( [ markerCoords.lat, markerCoords.lng ], {
+						draggable: true,
+						icon: myIcon
+					}).addTo( map );
+
+					markersCount++;
+				}
+			});
+		}
+
+		initMap();
+		addMarkers();
+	</script>
+
+</body>
+
+</html>

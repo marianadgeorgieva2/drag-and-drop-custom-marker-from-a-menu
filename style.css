@@ -1,0 +1,22 @@
+body {
+	margin: 0;
+}
+#map {
+	width: 600px;
+	height: 300px;
+}
+.marker-menu {
+	background: #eee;
+	width: 50px;
+	height: 300px;
+	border: 1px solid #fff;
+	float: left;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.draggable-marker {
+    width: 20px;
+    margin: 12px;
+    cursor: pointer;
+    z-index: 2;
+}
